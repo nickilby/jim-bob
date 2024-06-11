@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Diagnostics</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="/static/styles.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
         body {
@@ -21,7 +21,7 @@
 
         .container {
             width: 100%;
-            max-width: 80%;
+            max-width: 70%;
             padding: 20px;
             box-sizing: border-box;
         }
@@ -42,10 +42,8 @@
             width: 100%;
             overflow-y: auto;
             margin-top: 20px;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 0 20px 20px 20px;
+            background: #f8f9fa;
             max-height: 70vh;
         }
 
@@ -66,6 +64,31 @@
             padding: 10px;
             border-radius: 4px;
             margin-bottom: 5px;
+        }
+
+        .status-box {
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .green-status {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+            color: #155724 !important;
+        }
+
+        .amber-status {
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+            color: #856404;
+        }
+
+        .red-status {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
         }
     </style>
 </head>
@@ -90,44 +113,61 @@
         </div>
 
         <div class="results">
-            <div class="result">
+            <div class="status-box w3-pale-green w3-border-green">
+                <label>DNS Check:</label>
+                {% if additional_info.dns_info.ip %}
+                    <ul>
+                        <li><strong>DNS IP:</strong> {{ additional_info.dns_info.ip }}</li>
+                        {% if additional_info.dns_info.cname %}
+                            <li><strong>CNAME:</strong> {{ additional_info.dns_info.cname }}</li>
+                        {% endif %}
+                        {% if additional_info.dns_info.ns_records %}
+                            <li><strong>NS Records:</strong>
+                                <ul>
+                                    {% for ns in additional_info.dns_info.ns_records %}
+                                        <li>{{ ns }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endif %}
+                    </ul>
+                {% else %}
+                    <p>No DNS information available.</p>
+                {% endif %}
+            </div>
+
+            <div class="status-box {{ status_color }}">
                 <label>URL Test:</label>
                 {% if status_message %}
-                    <div class="w3-panel {{ status_color }}">
-                        <p>{{ status_message }}</p>
-                    </div>
-                    <div class="w3-panel w3-border">
-                        <ul>
-                            {% if additional_info.response_time %}
-                                <li><strong>Response Time:</strong> {{ additional_info.response_time }} seconds</li>
-                            {% endif %}
-                            {% if additional_info.content_length %}
-                                <li><strong>Content Length:</strong> {{ additional_info.content_length }} bytes</li>
-                            {% endif %}
-                            {% if additional_info.headers %}
-                                <li><strong>Headers:</strong></li>
-                                {% for key, value in additional_info.headers.items() %}
-                                    <li><strong>{{ key }}:</strong> {{ value }}</li>
-                                {% endfor %}
-                            {% endif %}
-                            {% if additional_info.ssl_details %}
-                                <li><strong>SSL Details:</strong></li>
-                                <li><strong>Issuer:</strong> {{ additional_info.ssl_details.issuer }}</li>
-                                <li><strong>Valid From:</strong> {{ additional_info.ssl_details.notBefore }}</li>
-                                <li><strong>Valid To:</strong> {{ additional_info.ssl_details.notAfter }}</li>
-                            {% endif %}
-                            {% if additional_info.redirects %}
-                                <li><strong>Redirects:</strong></li>
-                                {% for status, redirect_url in additional_info.redirects %}
-                                    <li><strong>{{ status }}:</strong> {{ redirect_url }}</li>
-                                {% endfor %}
-                            {% endif %}
-                        </ul>
-                    </div>
+                    <p>{{ status_message }}</p>
+                    <ul>
+                        {% if additional_info.response_time %}
+                            <li><strong>Response Time:</strong> {{ additional_info.response_time }} seconds</li>
+                        {% endif %}
+                        {% if additional_info.content_length %}
+                            <li><strong>Content Length:</strong> {{ additional_info.content_length }} bytes</li>
+                        {% endif %}
+                        {% if additional_info.headers %}
+                            <li><strong>Headers:</strong></li>
+                            {% for key, value in additional_info.headers.items() %}
+                                <li><strong>{{ key }}:</strong> {{ value }}</li>
+                            {% endfor %}
+                        {% endif %}
+                        {% if additional_info.ssl_details %}
+                            <li><strong>SSL Details:</strong></li>
+                            <li><strong>Issuer:</strong> {{ additional_info.ssl_details.issuer }}</li>
+                            <li><strong>Valid From:</strong> {{ additional_info.ssl_details.notBefore }}</li>
+                            <li><strong>Valid To:</strong> {{ additional_info.ssl_details.notAfter }}</li>
+                        {% endif %}
+                        {% if additional_info.redirects %}
+                            <li><strong>Redirects:</strong></li>
+                            {% for status, redirect_url in additional_info.redirects %}
+                                <li><strong>{{ status }}:</strong> {{ redirect_url }}</li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
                 {% else %}
-                    <div class="w3-panel w3-pale-yellow w3-border">
-                        <p>No URL tested yet.</p>
-                    </div>
+                    <p>No URL tested yet.</p>
                 {% endif %}
             </div>
         </div>
