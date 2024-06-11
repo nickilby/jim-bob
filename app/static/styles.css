@@ -1,51 +1,130 @@
-/* styles.css */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #343a40;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Diagnostics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            color: #343a40;
+        }
 
-.container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    width: 100%;
-    text-align: center;
-}
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-h1 {
-    margin-bottom: 20px;
-}
+        .fixed-form {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            z-index: 10;
+        }
 
-form {
-    margin-bottom: 20px;
-}
+        .results {
+            flex: 1;
+            width: 100%;
+            overflow-y: auto;
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-height: 70vh;
+        }
 
-input[type="text"] {
-    width: 80%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 16px;
-}
+        .results ul {
+            list-style: none;
+            padding: 0;
+        }
 
-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
+        .results li:nth-child(odd) {
+            background: #f0f0f0;
+        }
 
-button:hover
+        .results li:nth-child(even) {
+            background: #e0e0e0;
+        }
+
+        .results li {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="fixed-form">
+            <h1>Website Diagnostics</h1>
+            <form method="post">
+                <label for="url">Enter URL:</label>
+                <input class="w3-input w3-border" type="text" id="url" name="url" value="{{ current_url }}" required>
+                <button class="w3-button w3-blue w3-margin-top" type="submit">Check</button>
+            </form>
+
+            <div class="w3-margin-top">
+                <label>Past Tests:</label>
+                <ul class="w3-ul">
+                    {% for past_url in past_tests %}
+                        <li><a href="{{ url_for('main.index', url=past_url) }}">{{ past_url }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="results">
+            <div class="result">
+                <label>URL Test:</label>
+                {% if status_message %}
+                    <div class="w3-panel {{ status_color }}">
+                        <p>{{ status_message }}</p>
+                    </div>
+                    <div class="w3-panel w3-border">
+                        <ul>
+                            {% if additional_info.response_time %}
+                                <li><strong>Response Time:</strong> {{ additional_info.response_time }} seconds</li>
+                            {% endif %}
+                            {% if additional_info.content_length %}
+                                <li><strong>Content Length:</strong> {{ additional_info.content_length }} bytes</li>
+                            {% endif %}
+                            {% if additional_info.headers %}
+                                <li><strong>Headers:</strong></li>
+                                {% for key, value in additional_info.headers.items() %}
+                                    <li><strong>{{ key }}:</strong> {{ value }}</li>
+                                {% endfor %}
+                            {% endif %}
+                            {% if additional_info.ssl_details %}
+                                <li><strong>SSL Details:</strong></li>
+                                <li><strong>Issuer:</strong> {{ additional_info.ssl_details.issuer }}</li>
+                                <li><strong>Valid From:</strong> {{ additional_info.ssl_details.notBefore }}</li>
+                                <li><strong>Valid To:</strong> {{ additional_info.ssl_details.notAfter }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="w3-panel w3-pale-yellow w3-border">
+                        <p>No URL tested yet.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

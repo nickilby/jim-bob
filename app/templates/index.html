@@ -6,60 +6,107 @@
     <title>Website Diagnostics</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            color: #343a40;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 80%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .fixed-form {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            z-index: 10;
+        }
+
+        .results {
+            flex: 1;
+            width: 100%;
+            overflow-y: auto;
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-height: 70vh;
+        }
+    </style>
 </head>
 <body>
-    <div class="w3-container">
-        <h1>Website Diagnostics</h1>
-        <form method="post">
-            <label for="url">Enter URL:</label>
-            <input class="w3-input w3-border" type="text" id="url" name="url" value="{{ current_url }}" required>
-            <button class="w3-button w3-blue w3-margin-top" type="submit">Check</button>
-        </form>
+    <div class="container">
+        <div class="fixed-form">
+            <h1>Website Diagnostics</h1>
+            <form method="post">
+                <label for="url">Enter URL:</label>
+                <input class="w3-input w3-border" type="text" id="url" name="url" value="{{ current_url }}" required>
+                <button class="w3-button w3-blue w3-margin-top" type="submit">Check</button>
+            </form>
 
-        <div class="w3-margin-top">
-            <label>Past Tests:</label>
-            <ul class="w3-ul">
-                {% for past_url in past_tests %}
-                    <li><a href="{{ url_for('main.index', url=past_url) }}">{{ past_url }}</a></li>
-                {% endfor %}
-            </ul>
+            <div class="w3-margin-top">
+                <label>Past Tests:</label>
+                <ul class="w3-ul">
+                    {% for past_url in past_tests %}
+                        <li><a href="{{ url_for('main.index', url=past_url) }}">{{ past_url }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
 
-        <div class="result w3-margin-top">
-            <label>URL Test:</label>
-            {% if status_message %}
-                <div class="w3-panel {{ status_color }}">
-                    <p>{{ status_message }}</p>
-                </div>
-                <div class="w3-panel w3-border">
-                    {% if additional_info.response_time %}
-                        <p><strong>Response Time:</strong> {{ additional_info.response_time }} seconds</p>
-                    {% endif %}
-                    {% if additional_info.content_length %}
-                        <p><strong>Content Length:</strong> {{ additional_info.content_length }} bytes</p>
-                    {% endif %}
-                    {% if additional_info.headers %}
-                        <p><strong>Headers:</strong></p>
-                        <ul>
-                            {% for key, value in additional_info.headers.items() %}
-                                <li><strong>{{ key }}:</strong> {{ value }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                    {% if additional_info.ssl_details %}
-                        <p><strong>SSL Details:</strong></p>
-                        <ul>
-                            <li><strong>Issuer:</strong> {{ additional_info.ssl_details.issuer }}</li>
-                            <li><strong>Valid From:</strong> {{ additional_info.ssl_details.notBefore }}</li>
-                            <li><strong>Valid To:</strong> {{ additional_info.ssl_details.notAfter }}</li>
-                        </ul>
-                    {% endif %}
-                </div>
-            {% else %}
-                <div class="w3-panel w3-pale-yellow w3-border">
-                    <p>No URL tested yet.</p>
-                </div>
-            {% endif %}
+        <div class="results">
+            <div class="result">
+                <label>URL Test:</label>
+                {% if status_message %}
+                    <div class="w3-panel {{ status_color }}">
+                        <p>{{ status_message }}</p>
+                    </div>
+                    <div class="w3-panel w3-border">
+                        {% if additional_info.response_time %}
+                            <p><strong>Response Time:</strong> {{ additional_info.response_time }} seconds</p>
+                        {% endif %}
+                        {% if additional_info.content_length %}
+                            <p><strong>Content Length:</strong> {{ additional_info.content_length }} bytes</p>
+                        {% endif %}
+                        {% if additional_info.headers %}
+                            <p><strong>Headers:</strong></p>
+                            <ul>
+                                {% for key, value in additional_info.headers.items() %}
+                                    <li><strong>{{ key }}:</strong> {{ value }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {% if additional_info.ssl_details %}
+                            <p><strong>SSL Details:</strong></p>
+                            <ul>
+                                <li><strong>Issuer:</strong> {{ additional_info.ssl_details.issuer }}</li>
+                                <li><strong>Valid From:</strong> {{ additional_info.ssl_details.notBefore }}</li>
+                                <li><strong>Valid To:</strong> {{ additional_info.ssl_details.notAfter }}</li>
+                            </ul>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="w3-panel w3-pale-yellow w3-border">
+                        <p>No URL tested yet.</p>
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 </body>
