@@ -18,13 +18,17 @@ def check_website(url):
         "response_time": None,
         "content_length": None,
         "headers": {},
-        "ssl_details": {}
+        "ssl_details": {},
+        "redirects": []
     }
 
     try:
         start_time = time.time()
         response = requests.get(url, allow_redirects=True)
         response_time = time.time() - start_time
+
+        # Capture redirect history
+        redirects = [(r.status_code, r.url) for r in response.history]
 
         # Final URL after following redirects
         final_url = response.url
@@ -45,6 +49,7 @@ def check_website(url):
         print(f"Content Length: {content_length} bytes")
         print(f"Headers: {headers}")
         print(f"SSL Details: {ssl_details}")
+        print(f"Redirects: {redirects}")
 
         result.update({
             "status_message": f"Green (200 OK) - Final URL: {final_url}" if final_status == 200 else f"Amber ({final_status}) - Final URL: {final_url}" if final_status in [301, 302] else f"Red ({final_status}) - Final URL: {final_url}",
@@ -52,7 +57,8 @@ def check_website(url):
             "response_time": response_time,
             "content_length": content_length,
             "headers": headers,
-            "ssl_details": ssl_details
+            "ssl_details": ssl_details,
+            "redirects": redirects
         })
 
     except requests.exceptions.SSLError:

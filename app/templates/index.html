@@ -48,6 +48,25 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             max-height: 70vh;
         }
+
+        .results ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .results li:nth-child(odd) {
+            background: #f0f0f0;
+        }
+
+        .results li:nth-child(even) {
+            background: #e0e0e0;
+        }
+
+        .results li {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
@@ -78,28 +97,32 @@
                         <p>{{ status_message }}</p>
                     </div>
                     <div class="w3-panel w3-border">
-                        {% if additional_info.response_time %}
-                            <p><strong>Response Time:</strong> {{ additional_info.response_time }} seconds</p>
-                        {% endif %}
-                        {% if additional_info.content_length %}
-                            <p><strong>Content Length:</strong> {{ additional_info.content_length }} bytes</p>
-                        {% endif %}
-                        {% if additional_info.headers %}
-                            <p><strong>Headers:</strong></p>
-                            <ul>
+                        <ul>
+                            {% if additional_info.response_time %}
+                                <li><strong>Response Time:</strong> {{ additional_info.response_time }} seconds</li>
+                            {% endif %}
+                            {% if additional_info.content_length %}
+                                <li><strong>Content Length:</strong> {{ additional_info.content_length }} bytes</li>
+                            {% endif %}
+                            {% if additional_info.headers %}
+                                <li><strong>Headers:</strong></li>
                                 {% for key, value in additional_info.headers.items() %}
                                     <li><strong>{{ key }}:</strong> {{ value }}</li>
                                 {% endfor %}
-                            </ul>
-                        {% endif %}
-                        {% if additional_info.ssl_details %}
-                            <p><strong>SSL Details:</strong></p>
-                            <ul>
+                            {% endif %}
+                            {% if additional_info.ssl_details %}
+                                <li><strong>SSL Details:</strong></li>
                                 <li><strong>Issuer:</strong> {{ additional_info.ssl_details.issuer }}</li>
                                 <li><strong>Valid From:</strong> {{ additional_info.ssl_details.notBefore }}</li>
                                 <li><strong>Valid To:</strong> {{ additional_info.ssl_details.notAfter }}</li>
-                            </ul>
-                        {% endif %}
+                            {% endif %}
+                            {% if additional_info.redirects %}
+                                <li><strong>Redirects:</strong></li>
+                                {% for status, redirect_url in additional_info.redirects %}
+                                    <li><strong>{{ status }}:</strong> {{ redirect_url }}</li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
                     </div>
                 {% else %}
                     <div class="w3-panel w3-pale-yellow w3-border">
