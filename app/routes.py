@@ -33,5 +33,12 @@ def index():
         status_message = result.get("status_message")
         status_color = result.get("status_color")
         additional_info = result
-    
-    return render_template("index.html", status_message=status_message, status_color=status_color, past_tests=past_tests, current_url=url, additional_info=additional_info)
+
+    return render_template(
+        "index.html",
+        status_message=status_message,
+        status_color=status_color,
+        past_tests=past_tests,
+        current_url=url,
+        additional_info=additional_info
+    )

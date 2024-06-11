@@ -1,9 +1,10 @@
-import os
-
 """
-This module contains the configuration settings for the Flask app.
+This module starts the Flask app.
 """
 
-class Config:
-    SECRET_KEY = os.getenv('SECRET_KEY', 'default_secret_key')
-    DEBUG = True
+from app import create_app
+
+app = create_app()
+
+if __name__ == "__main__":
+    app.run(debug=True)

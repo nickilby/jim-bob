@@ -47,7 +47,7 @@ def check_website(url):
         final_status = response.status_code
         headers = response.headers
         content_length = len(response.content)
-        
+
         # SSL Certificate Details
         ssl_details = {}
         if urlparse(final_url).scheme == 'https':
@@ -67,9 +67,25 @@ def check_website(url):
         print(f"Redirects: {redirects}")
         print(f"DNS Info: {dns_info}")
 
+        status_message = (
+            f"Green (200 OK) - Final URL: {final_url}"
+            if final_status == 200 else
+            f"Amber ({final_status}) - Final URL: {final_url}"
+            if final_status in [301, 302] else
+            f"Red ({final_status}) - Final URL: {final_url}"
+        )
+
+        status_color = (
+            "w3-pale-green w3-border-green"
+            if final_status == 200 else
+            "w3-pale-yellow w3-border-yellow"
+            if final_status in [301, 302] else
+            "w3-pale-red w3-border-red"
+        )
+
         result.update({
-            "status_message": f"Green (200 OK) - Final URL: {final_url}" if final_status == 200 else f"Amber ({final_status}) - Final URL: {final_url}" if final_status in [301, 302] else f"Red ({final_status}) - Final URL: {final_url}",
-            "status_color": "w3-pale-green w3-border-green" if final_status == 200 else "w3-pale-yellow w3-border-yellow" if final_status in [301, 302] else "w3-pale-red w3-border-red",
+            "status_message": status_message,
+            "status_color": status_color,
             "response_time": response_time,
             "content_length": content_length,
             "headers": headers,
@@ -88,7 +104,7 @@ def check_website(url):
             "status_message": "Red (Down)",
             "status_color": "w3-pale-red w3-border-red"
         })
-    
+
     return result
 
 def get_ssl_certificate_details(url):
@@ -122,9 +138,15 @@ def get_dns_info(url):
         if cname_records:
             dns_info["cname"] = str(cname_records[0].target)
         ns_records = dns.resolver.resolve(hostname, 'NS')
-        for ns in ns_records:
-            dns_info["ns_records"].append(str(ns.target))
-    except (socket.gaierror, dns.resolver.NoAnswer, dns.resolver.NXDOMAIN, dns.resolver.NoNameservers):
+        for ns_record in ns_records:
+            dns_info["ns_records"].append(str(ns_record.target))
+    except (
+        socket.gaierror,
+        dns.resolver.NoAnswer,
+        dns.resolver.NXDOMAIN,
+        dns.resolver.NoNameservers
+    ):
         pass
-    
+
+
     return dns_info
