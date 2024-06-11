@@ -1,3 +1,7 @@
+"""
+This module starts the Flask app.
+"""
+
 from app import create_app
 
 app = create_app()

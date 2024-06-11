@@ -1,16 +1,23 @@
-import requests
-from urllib.parse import urlparse
+"""
+This module contains the functionality to check website status and DNS records.
+"""
+
 import time
 import socket
 import ssl
+from urllib.parse import urlparse
+
+import requests
 import dns.resolver
 
 def add_schema_if_missing(url):
+    """Add schema to URL if missing."""
     if not urlparse(url).scheme:
         return 'http://' + url
     return url
 
 def check_website(url):
+    """Check the website status and DNS records."""
     url = add_schema_if_missing(url)
     result = {
         "status_message": "Red (Down)",
@@ -85,6 +92,7 @@ def check_website(url):
     return result
 
 def get_ssl_certificate_details(url):
+    """Retrieve SSL certificate details."""
     parsed_url = urlparse(url)
     hostname = parsed_url.hostname
     context = ssl.create_default_context()
@@ -101,6 +109,7 @@ def get_ssl_certificate_details(url):
             }
 
 def get_dns_info(url):
+    """Retrieve DNS information including IP, CNAME, and NS records."""
     hostname = urlparse(url).hostname
     dns_info = {
         "ip": None,

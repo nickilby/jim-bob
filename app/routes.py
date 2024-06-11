@@ -1,3 +1,7 @@
+"""
+This module defines the routes for the Flask app.
+"""
+
 from flask import Blueprint, render_template, request, redirect, url_for
 from services.checker import check_website
 
@@ -8,6 +12,9 @@ past_tests = []
 
 @main.route("/", methods=["GET", "POST"])
 def index():
+    """
+    Handle the main route to display the diagnostics form and results.
+    """
     status_message = None
     status_color = ""
     url = request.args.get('url', '')
