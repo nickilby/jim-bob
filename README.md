@@ -1,7 +1,7 @@
 1. Clone the repository:
     ```
     git clone <repository_url>
-    cd Diagnostics
+    cd Status
     ```
 
 2. Create a virtual environment and activate it:
