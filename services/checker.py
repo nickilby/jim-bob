@@ -150,9 +150,9 @@ def get_dns_info(url):
         if dns_info["ip"]:
             dns_info["status_color"] = "w3-pale-green w3-border-green"
     except (
-        socket.gaierror, 
-        dns.resolver.NoAnswer, 
-        dns.resolver.NXDOMAIN, 
+        socket.gaierror,
+        dns.resolver.NoAnswer,
+        dns.resolver.NXDOMAIN,
         dns.resolver.NoNameservers
     ):
         pass
