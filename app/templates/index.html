@@ -20,7 +20,7 @@
 
         .container {
             width: 100%;
-            max-width: 70%;
+            max-width: 600px;
             padding: 20px;
             box-sizing: border-box;
         }
@@ -134,9 +134,9 @@
         </div>
 
         <div class="results">
-            <div class="status-box {{ additional_info.dns_info.status_color }}">
+            <div class="status-box {{ additional_info.get('dns_info', {}).get('status_color', 'red-status') }}">
                 <label>DNS Check:</label>
-                {% if additional_info.dns_info %}
+                {% if additional_info.get('dns_info') %}
                     <ul>
                         <li><strong>DNS IP:</strong> {{ additional_info.dns_info.ip }}</li>
                         {% if additional_info.dns_info.cname %}
