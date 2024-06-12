@@ -30,7 +30,8 @@ def check_website(url):
         "dns_info": {
             "ip": None,
             "cname": None,
-            "ns_records": []
+            "ns_records": [],
+            "status_color": "w3-pale-red w3-border-red"
         }
     }
 
@@ -55,6 +56,10 @@ def check_website(url):
 
         # DNS Lookup
         dns_info = get_dns_info(url)
+        if dns_info["ip"]:
+            dns_info["status_color"] = "w3-pale-green w3-border-green"
+
+        result['dns_info'] = dns_info
 
         # Log to terminal
         print(f"Initial URL: {url}")
@@ -90,16 +95,17 @@ def check_website(url):
             "content_length": content_length,
             "headers": headers,
             "ssl_details": ssl_details,
-            "redirects": redirects,
-            "dns_info": dns_info
+            "redirects": redirects
         })
 
     except requests.exceptions.SSLError:
+        result['dns_info'] = result.get('dns_info', {"status_color": "w3-pale-red w3-border-red"})
         result.update({
             "status_message": "Amber (SSL Error)",
             "status_color": "w3-pale-yellow w3-border-yellow"
         })
     except requests.exceptions.RequestException:
+        result['dns_info'] = result.get('dns_info', {"status_color": "w3-pale-red w3-border-red"})
         result.update({
             "status_message": "Red (Down)",
             "status_color": "w3-pale-red w3-border-red"
@@ -130,7 +136,8 @@ def get_dns_info(url):
     dns_info = {
         "ip": None,
         "cname": None,
-        "ns_records": []
+        "ns_records": [],
+        "status_color": "w3-pale-red w3-border-red"
     }
     try:
         dns_info["ip"] = socket.gethostbyname(hostname)
@@ -140,13 +147,14 @@ def get_dns_info(url):
         ns_records = dns.resolver.resolve(hostname, 'NS')
         for ns_record in ns_records:
             dns_info["ns_records"].append(str(ns_record.target))
+        if dns_info["ip"]:
+            dns_info["status_color"] = "w3-pale-green w3-border-green"
     except (
-        socket.gaierror,
-        dns.resolver.NoAnswer,
-        dns.resolver.NXDOMAIN,
+        socket.gaierror, 
+        dns.resolver.NoAnswer, 
+        dns.resolver.NXDOMAIN, 
         dns.resolver.NoNameservers
     ):
         pass
-
 
     return dns_info

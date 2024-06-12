@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Diagnostics</title>
+    <title>Website Status</title>
     <link rel="stylesheet" href="/static/styles.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
@@ -95,7 +95,7 @@
 <body>
     <div class="container">
         <div class="fixed-form">
-            <h1>Website Diagnostics</h1>
+            <h1>Website Status</h1>
             <form method="post">
                 <label for="url">Enter URL:</label>
                 <input class="w3-input w3-border" type="text" id="url" name="url" value="{{ current_url }}" required>
@@ -113,9 +113,9 @@
         </div>
 
         <div class="results">
-            <div class="status-box w3-pale-green w3-border-green">
+            <div class="status-box {{ additional_info.get('dns_info', {}).get('status_color', 'w3-pale-red w3-border-red') }}">
                 <label>DNS Check:</label>
-                {% if additional_info.dns_info.ip %}
+                {% if additional_info.get('dns_info') %}
                     <ul>
                         <li><strong>DNS IP:</strong> {{ additional_info.dns_info.ip }}</li>
                         {% if additional_info.dns_info.cname %}
