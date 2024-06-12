@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Status</title>
-    <link rel="stylesheet" href="/static/styles.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Website Diagnostics</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,25 +46,6 @@
             max-height: 70vh;
         }
 
-        .results ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .results li:nth-child(odd) {
-            background: #f0f0f0;
-        }
-
-        .results li:nth-child(even) {
-            background: #e0e0e0;
-        }
-
-        .results li {
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 5px;
-        }
-
         .status-box {
             padding: 20px;
             border-radius: 8px;
@@ -80,31 +60,72 @@
         }
 
         .amber-status {
-            background-color: #fff3cd;
-            border-color: #ffeeba;
-            color: #856404;
+            background-color: #fff3cd !important;
+            border-color: #ffeeba !important;
+            color: #856404 !important;
         }
 
         .red-status {
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-            color: #721c24;
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+            color: #721c24 !important;
+        }
+
+        .past-tests {
+            margin-top: 20px;
+        }
+
+        .past-tests ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .past-tests li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .past-tests li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .past-tests li a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            display: block;
+        }
+
+        .past-tests li a:hover {
+            text-decoration: underline;
+        }
+
+        .past-tests-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="fixed-form">
-            <h1>Website Status</h1>
+            <h1>Website Diagnostics</h1>
             <form method="post">
                 <label for="url">Enter URL:</label>
                 <input class="w3-input w3-border" type="text" id="url" name="url" value="{{ current_url }}" required>
                 <button class="w3-button w3-blue w3-margin-top" type="submit">Check</button>
             </form>
 
-            <div class="w3-margin-top">
-                <label>Past Tests:</label>
-                <ul class="w3-ul">
+            <div class="past-tests">
+                <div class="past-tests-title">Past Tests:</div>
+                <ul>
                     {% for past_url in past_tests %}
                         <li><a href="{{ url_for('main.index', url=past_url) }}">{{ past_url }}</a></li>
                     {% endfor %}
@@ -113,9 +134,9 @@
         </div>
 
         <div class="results">
-            <div class="status-box {{ additional_info.get('dns_info', {}).get('status_color', 'w3-pale-red w3-border-red') }}">
+            <div class="status-box {{ additional_info.dns_info.status_color }}">
                 <label>DNS Check:</label>
-                {% if additional_info.get('dns_info') %}
+                {% if additional_info.dns_info %}
                     <ul>
                         <li><strong>DNS IP:</strong> {{ additional_info.dns_info.ip }}</li>
                         {% if additional_info.dns_info.cname %}
@@ -130,6 +151,13 @@
                                 </ul>
                             </li>
                         {% endif %}
+                        <li><strong>Zengenti Hosted:</strong> 
+                            {% if additional_info.dns_info.is_zengenti %}
+                                Yes
+                            {% else %}
+                                No
+                            {% endif %}
+                        </li>
                     </ul>
                 {% else %}
                     <p>No DNS information available.</p>

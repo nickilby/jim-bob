@@ -5,10 +5,13 @@ This module contains the functionality to check website status and DNS records.
 import time
 import socket
 import ssl
+import ipaddress
 from urllib.parse import urlparse
 
 import requests
 import dns.resolver
+
+ZENGENTI_IP_RANGE = ipaddress.ip_network("185.18.136.0/22")
 
 def add_schema_if_missing(url):
     """Add schema to URL if missing."""
@@ -21,7 +24,7 @@ def check_website(url):
     url = add_schema_if_missing(url)
     result = {
         "status_message": "Red (Down)",
-        "status_color": "w3-pale-red w3-border-red",
+        "status_color": "red-status",
         "response_time": None,
         "content_length": None,
         "headers": {},
@@ -31,7 +34,8 @@ def check_website(url):
             "ip": None,
             "cname": None,
             "ns_records": [],
-            "status_color": "w3-pale-red w3-border-red"
+            "status_color": "red-status",
+            "is_zengenti": False
         }
     }
 
@@ -57,7 +61,9 @@ def check_website(url):
         # DNS Lookup
         dns_info = get_dns_info(url)
         if dns_info["ip"]:
-            dns_info["status_color"] = "w3-pale-green w3-border-green"
+            dns_info["status_color"] = "green-status"
+            if ipaddress.ip_address(dns_info["ip"]) in ZENGENTI_IP_RANGE:
+                dns_info["is_zengenti"] = True
 
         result['dns_info'] = dns_info
 
@@ -81,11 +87,11 @@ def check_website(url):
         )
 
         status_color = (
-            "w3-pale-green w3-border-green"
+            "green-status"
             if final_status == 200 else
-            "w3-pale-yellow w3-border-yellow"
+            "amber-status"
             if final_status in [301, 302] else
-            "w3-pale-red w3-border-red"
+            "red-status"
         )
 
         result.update({
@@ -99,16 +105,16 @@ def check_website(url):
         })
 
     except requests.exceptions.SSLError:
-        result['dns_info'] = result.get('dns_info', {"status_color": "w3-pale-red w3-border-red"})
+        result['dns_info'] = result.get('dns_info', {"status_color": "red-status", "is_zengenti": False})
         result.update({
             "status_message": "Amber (SSL Error)",
-            "status_color": "w3-pale-yellow w3-border-yellow"
+            "status_color": "amber-status"
         })
     except requests.exceptions.RequestException:
-        result['dns_info'] = result.get('dns_info', {"status_color": "w3-pale-red w3-border-red"})
+        result['dns_info'] = result.get('dns_info', {"status_color": "red-status", "is_zengenti": False})
         result.update({
             "status_message": "Red (Down)",
-            "status_color": "w3-pale-red w3-border-red"
+            "status_color": "red-status"
         })
 
     return result
@@ -137,7 +143,8 @@ def get_dns_info(url):
         "ip": None,
         "cname": None,
         "ns_records": [],
-        "status_color": "w3-pale-red w3-border-red"
+        "status_color": "w3-pale-red w3-border-red",
+        "is_zengenti": False
     }
     try:
         dns_info["ip"] = socket.gethostbyname(hostname)
@@ -149,6 +156,8 @@ def get_dns_info(url):
             dns_info["ns_records"].append(str(ns_record.target))
         if dns_info["ip"]:
             dns_info["status_color"] = "w3-pale-green w3-border-green"
+            if ipaddress.ip_address(dns_info["ip"]) in ZENGENTI_IP_RANGE:
+                dns_info["is_zengenti"] = True
     except (
         socket.gaierror,
         dns.resolver.NoAnswer,
