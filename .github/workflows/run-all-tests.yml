@@ -1,0 +1,28 @@
+---
+name: Run All The Tests
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  run_python_tests:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/nickilby/jim-bob:latest
+      options: --user root # needs to be root or the checkout fails.
+    env:
+      GITHUB_PAT: ${{ secrets.PAT_NO_PERMISSIONS }}
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: false
+        clean: true
+
+    - name: Symlink the prebuilt assets and run tests.
+      run: |
+        ln -snf /app/.venv .
+        make report
+        make test
+...
