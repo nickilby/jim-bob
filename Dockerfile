@@ -19,6 +19,9 @@ WORKDIR /app
 # Expose the port that the app runs on
 EXPOSE 8000
 
+# Add some labels so it looks nice in Github packages.
+LABEL org.opencontainers.image.source=https://github.com/nickilby/jim-bob/
+
 # Stage 2a: Development and test image
 ######################################
 # Includes a prebuild virtual environment with all the developer dependencies, but no
@@ -32,6 +35,8 @@ COPY pyproject.toml poetry.lock ./
 RUN export POETRY_HOME=/opt/.venv-poetry \
  && $POETRY_HOME/bin/poetry install --no-interaction --no-ansi \
  && $POETRY_HOME/bin/poetry completions bash >> ~/.bash_completion
+
+LABEL org.opencontainers.image.description="jim-bob development container."
 
 # Stage 2b: Production image
 ############################
@@ -49,3 +54,5 @@ ENV FLASK_APP=app.py
 
 # Run the Flask app with Gunicorn
 CMD ["poetry", "run", "gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+
+LABEL org.opencontainers.image.description="jim-bob production container."
