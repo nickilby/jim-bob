@@ -1,3 +1,6 @@
+---
+title: Goals
+---
 ## **Goals**
 
 Develop a web application that allows users to input a URL and receive a comprehensive health report based on a series of tests. The app will be accessible via a web frontend and will not rely on our internal infrastructure to function. Additionally, we aim to come up with a catchy and meaningful name for the app.
