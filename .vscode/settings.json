@@ -1,0 +1,32 @@
+{
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "files.exclude": {
+        "**/*.pyc": {"when": "$(basename).py"}, 
+        "**/__pycache__": true,
+        "**/.pytest_cache": true
+    },
+    "editor.detectIndentation": true,
+    "python.languageServer": "Pylance",
+    "editor.minimap.enabled": false,
+    "python.defaultInterpreterPath": ".venv/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "terminal.integrated.shellIntegration.enabled": true,
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "bash",
+            "args": ["-l"]
+        }
+    },
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "editor.rulers": [88],
+    "python.autoComplete.extraPaths": [
+        "./"
+    ],
+    "python.analysis.extraPaths": [
+        "./"
+    ]
+}
