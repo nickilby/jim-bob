@@ -13,7 +13,7 @@
     "python.languageServer": "Pylance",
     "editor.minimap.enabled": false,
     "python.defaultInterpreterPath": ".venv/bin/python",
-    "python.terminal.activateEnvironment": true,
+    "python.terminal.activateEnvironment": false,
     "terminal.integrated.shellIntegration.enabled": true,
     "terminal.integrated.profiles.linux": {
         "bash": {

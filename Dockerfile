@@ -30,13 +30,13 @@ LABEL org.opencontainers.image.source=https://github.com/nickilby/jim-bob/
 # the dependencies to install before the tests can be run.
 FROM base AS development
 
+LABEL org.opencontainers.image.description="jim-bob development container."
+
 # Copy only the necessary files and prebuild the virtual environment.
 COPY pyproject.toml poetry.lock ./
 RUN export POETRY_HOME=/opt/.venv-poetry \
  && $POETRY_HOME/bin/poetry install --no-interaction --no-ansi \
  && $POETRY_HOME/bin/poetry completions bash >> ~/.bash_completion
-
-LABEL org.opencontainers.image.description="jim-bob development container."
 
 # Stage 2b: Production image
 ############################
@@ -44,15 +44,12 @@ LABEL org.opencontainers.image.description="jim-bob development container."
 # the source files.  This will be used to run the app in production.
 FROM base AS production
 
+LABEL org.opencontainers.image.description="jim-bob production container."
+
 # Copy everything and build the virtual environment without the dev dependencies.
 COPY . .
 RUN export POETRY_HOME=/opt/.venv-poetry \
  && $POETRY_HOME/bin/poetry install --without dev
 
-# Define environment variable
-ENV FLASK_APP=app.py
-
-# Run the Flask app with Gunicorn
-CMD ["poetry", "run", "gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
-
-LABEL org.opencontainers.image.description="jim-bob production container."
+# Run the Flask app with the poetry script in the virtual environment.
+CMD [".venv/bin/run"]
