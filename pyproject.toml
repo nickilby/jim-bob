@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "jim-bob"
+version = "0.1.0"
+description = "URL Health Check"
+authors = ["Nic Kilby <n.kilby@zengenti.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://nickilby.github.io/jim-bob"
+repository = "https://github.com/nickilby/jim-bob"
+documentation = "https://nickilby.github.io/jim-bob"
+packages = [
+    { include = "jim_bob", from = "src" }
+]
+
+[tool.poetry.dependencies]
+ipykernel = "^6.29.5"
+python = "^3.11"
+dnspython = "2.6.1"
+requests = "^2.25.1"
+flask = "^2.0.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.1"
+black = "^21.6b0"
+isort = "^5.9.1"
+
+[tool.poetry.scripts]
+run = "jim_bob.main:main"
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+
+[tool.isort]
+profile = "black"

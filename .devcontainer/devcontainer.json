@@ -1,0 +1,38 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "Python 3",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"build": {
+		"dockerfile": "../Dockerfile",
+        "context": "../",
+        "target": "development"
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
+		"ghcr.io/devcontainers-contrib/features/starship:1": {}
+	},
+
+	// "forwardPorts": [],
+	// 👇 Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": ". ./.devcontainer/post-create.sh  > ../post-create-log.txt",
+	// 👇 Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"charliermarsh.ruff",
+				"ms-azuretools.vscode-docker",
+				"charliermarsh.ruff",
+				"eamodio.gitlens",
+				"ms-python.black-formatter",
+				"ms-python.mypy-type-checker",
+				"ms-python.python",
+				"streetsidesoftware.code-spell-checker",
+				"tamasfe.even-better-toml"
+			]
+		}
+	},
+
+	// Connect as root user so development is similar to production.
+	"remoteUser": "root"
+}

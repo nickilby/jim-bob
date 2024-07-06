@@ -6,6 +6,7 @@
         "devcontainers",
         "eamodio",
         "mypy",
-        "tamasfe"
+        "tamasfe",
+        "zengenti"
     ]
 }

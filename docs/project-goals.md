@@ -11,13 +11,13 @@ The objective is to create a standalone app that evaluates the health of a given
 
 - **DNS Resolution**: Verify that the domain name resolves correctly.
 - **HTTP Response Codes**: Check the HTTP status codes returned by the server.
-- **Returned Headers**: Analyse the headers returned by the server.
+- **Returned Headers**: Analyze the headers returned by the server.
 - **Upstream Provider Availability**: Assess the availability of upstream providers.
 - **Disaster Recovery (DR) Scenario Status**: Check the status of DR scenarios.
 - **VMware Host Resource Usage**: Monitor resource usage on VMware hosts.
 - **Container Health**: Check the status of container deployments.
 - **IIS Status**: Verify the status of IIS servers.
-- **Query Prometheus Metrics**: Fetch and analyse metrics from Prometheus.
+- **Query Prometheus Metrics**: Fetch and analyze metrics from Prometheus.
 - **VIP Status/Location**: Determine the status and location of VIPs (Virtual IPs).
 - **Database Responses**: Check the responsiveness of databases.
 

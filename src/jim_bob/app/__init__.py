@@ -8,7 +8,7 @@ def create_app():
     """Create and configure the Flask app."""
     app = Flask(__name__)
 
-    from app.routes import main  # pylint: disable=import-outside-toplevel
+    from jim_bob.app.routes import main  # pylint: disable=import-outside-toplevel
     app.register_blueprint(main)
 
     return app

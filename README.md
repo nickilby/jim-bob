@@ -6,8 +6,8 @@
 
 2. Create a virtual environment and activate it:
     ```
-    python3 -m venv venv
-    source venv/bin/activate
+    python3 -m venv .venv
+    source .venv/bin/activate
     ```
 
 3. Install the dependencies:
@@ -17,7 +17,9 @@
 
 4. Run the application:
     ```
-    python main.py
+    python ./src/jim_bob/main.py
     ```
+
 ## Usage
-Open your web browser and go to `http://127.0.0.1:8000`. Enter the URL you want to check in the provided input box and click "Check".
+Open your web browser and go to `http://127.0.0.1:8000`. Enter the URL you want to check
+in the provided input box and click "Check".
