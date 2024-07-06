@@ -23,6 +23,7 @@ jobs:
     - name: Symlink the prebuilt assets and run tests.
       run: |
         ln -snf /app/.venv .
+        make venv
         make report
         make test
 ...
