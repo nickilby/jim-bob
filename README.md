@@ -26,6 +26,7 @@ in the provided input box and click "Check".
 
 
 #### Flow of tests
+```mermaid
 flowchart TD
     A[Required Tests] --> B[All Sites Global Tests]
     B --> C[Enter URL]
@@ -56,3 +57,4 @@ flowchart TD
 
     M --> X[Work out if the URL is a Redirect - Pass any info that we can]
     M --> Y[Work out if the URL is a Reverse Proxy - Pass any info that we can]
+```
