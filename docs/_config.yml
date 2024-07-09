@@ -1,6 +1,6 @@
 title: Jim Bob Documentation
 url: https://nickilby.github.io
-baseurl: /jim-bob # the sub path of your site, e.g. /blog/
+baseurl: /status # the sub path of your site, e.g. /blog/
 
 remote_theme: just-the-docs/just-the-docs
 search_enabled: true
