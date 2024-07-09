@@ -1,5 +1,5 @@
 ---
-title: Goals
+title: Tests
 ---
 # Tests
 

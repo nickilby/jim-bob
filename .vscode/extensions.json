@@ -1,5 +1,6 @@
 {
     "recommendations": [
+        "bierner.markdown-mermaid",
         "charliermarsh.ruff",
         "ms-azuretools.vscode-docker",
         "charliermarsh.ruff",
