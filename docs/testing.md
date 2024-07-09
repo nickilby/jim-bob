@@ -31,8 +31,9 @@ title: Tests
 
 ## Flow of tests
 
+<div class="mermaid-container">
 ```mermaid
-flowchart TD
+flowchart TB
     A[Required Tests] --> B[All Sites Global Tests]
     B --> C[Enter URL]
     C --> D[Website Response]
@@ -63,3 +64,4 @@ flowchart TD
     M --> X[Work out if the URL is a Redirect - Pass any info that we can]
     M --> Y[Work out if the URL is a Reverse Proxy - Pass any info that we can]
 ```
+</div>
