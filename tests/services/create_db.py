@@ -2,6 +2,8 @@ import os
 import json
 import sqlite3
 
+from jim_bob.search_hostheader import get_data_file_path
+
 def create_database(db_path):
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
@@ -43,8 +45,8 @@ def load_json_files_to_db(directory_path, db_path):
 
 if __name__ == "__main__":
     directory_path = '/data/platform-config/hosts/vars'
-    db_path = 'json_files.db'
+    db_path = get_data_file_path('json_files.db')
 
     # Create database and load JSON data
     create_database(db_path)
-    load_json_files_to_db(directory_path, db_path)
+    # load_json_files_to_db(directory_path, db_path)
