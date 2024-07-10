@@ -35,7 +35,7 @@ def search_hostheader_in_dict(data, target_hostheader):
     return None
 
 if __name__ == "__main__":
-    db_path = 'json_files.db'
+    db_path = './data/json_files.db'
     target_hostheader = 'www.visitbury.com'
 
     # Search for the hostheader in the database
