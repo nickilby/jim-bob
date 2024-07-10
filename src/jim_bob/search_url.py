@@ -35,7 +35,7 @@ def search_url_in_dict(data, target_url):
 
 if __name__ == "__main__":
     db_path = 'json_files.db'
-    target_url = 'www.suffolk.gov.uk'
+    target_url = 'www.wsh.nhs.uk'
 
     # Search for the URL in the database
     if search_url_in_db(target_url, db_path):

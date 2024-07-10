@@ -56,7 +56,7 @@ def get_data_file_path(filename: str):
 
 if __name__ == "__main__":
     db_path = get_data_file_path("json_files.db")
-    target_hostheader = "www.suffolk.gov.uk"
+    target_hostheader = "www.ksc.ac.uk"
 
     # Search for the hostheader in the database
     backend_url = search_hostheader_in_db(target_hostheader, db_path)

@@ -1,9 +1,7 @@
 # Blocks
-www.ksc.ac.uk/
-thames.towerhamlets.gov.uk/
-www.towerhamletshomes.org.uk/
-www.suffolk.gov.uk/
-www.suffolk.gov.uk/children-families-and-learning/fostering-and-adoption
+www.ksc.ac.uk
+thames.towerhamlets.gov.uk
+www.towerhamletshomes.org.u
 
 # Classic
 www.towerhamlets.gov.uk
