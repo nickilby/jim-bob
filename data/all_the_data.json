@@ -1,0 +1,41 @@
+{
+    "_default": {},
+    "environments": {
+        "1": {
+            "name": "first_customer",
+            "site_list": [
+                {
+                    "contensis_project": 1,
+                    "hostheader": "live-first.cloud.contensis.com",
+                    "preview_server": "z-first",
+                    "type": "LIVE"
+                },
+                {
+                    "contensis_project": 1,
+                    "hostheader": "preview-first.cloud.contensis.com",
+                    "preview_server": "z-first",
+                    "type": "TEST",
+                    "use_ssl": true
+                }
+            ]
+        },
+        "2": {
+            "name": "first_customer",
+            "site_list": [
+                {
+                    "contensis_project": 1,
+                    "hostheader": "live-first.cloud.contensis.com",
+                    "preview_server": "z-first",
+                    "type": "LIVE"
+                },
+                {
+                    "contensis_project": 1,
+                    "hostheader": "preview-first.cloud.contensis.com",
+                    "preview_server": "z-first",
+                    "type": "TEST",
+                    "use_ssl": true
+                }
+            ]
+        }
+    }
+}

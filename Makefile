@@ -16,8 +16,9 @@ help: # Show help for each of the makefile recipes.
 lint:  # Lint the code with ruff and sourcery.
 	.venv/bin/python -m ruff check ./src ./tests
 
-lock:  # Create the lock file.
+lock:  # Create the lock file and requirements file.
 	$(POETRY) lock
+	$(POETRY) export --without-hashes --format=requirements.txt | sed 's/ .*//' > requirements.txt
 
 report:  # Report the python version and pip list.
 	.venv/bin/python --version
@@ -25,9 +26,6 @@ report:  # Report the python version and pip list.
 
 test:  # Run tests.
 	.venv/bin/python -m pytest ./tests --verbose --color=yes
-
-# poetry has been installed in a virtual environment in the Docker image.
-POETRY = /opt/.venv-poetry/bin/poetry
 
 venv:  # Recreate the virtual environment using poetry.
 	$(POETRY) config virtualenvs.in-project true

@@ -28,5 +28,21 @@
     ],
     "python.analysis.extraPaths": [
         "./"
+    ],
+    "cSpell.words": [
+        "azuretools",
+        "bierner",
+        "charliermarsh",
+        "contensis",
+        "devcontainer",
+        "devcontainers",
+        "eamodio",
+        "hostheader",
+        "mypy",
+        "nickilby",
+        "tamasfe",
+        "Tinydb",
+        "toolsai",
+        "zengenti"
     ]
 }
