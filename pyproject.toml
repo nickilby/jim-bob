@@ -19,6 +19,7 @@ dnspython = "2.6.1"
 requests = "^2.25.1"
 ruff = "^0.5.1"
 flask = "^2.0.1"
+tinydb = "^4.8.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.1"
