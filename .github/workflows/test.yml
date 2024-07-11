@@ -1,0 +1,13 @@
+---
+name: Run All The Tests
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Trigger Webhook for CD on Azure App Service
+      run: curl https://\${{ secrets.AZURE_APP_SERVICE_WEBHOOK }}@mary-sue.scm.azurewebsites.net/api/registry/webhook -H "" -d ""

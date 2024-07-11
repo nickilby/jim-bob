@@ -16,9 +16,6 @@ RUN export POETRY_HOME=/opt/.venv-poetry \
 # will be prebuilt for use in testing.
 WORKDIR /app
 
-# Expose the port that the app runs on
-EXPOSE 8000
-
 # Add some labels so it looks nice in Github packages.
 LABEL org.opencontainers.image.source=https://github.com/nickilby/jim-bob/
 
