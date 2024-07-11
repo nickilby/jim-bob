@@ -20,6 +20,7 @@ def index():
     url = request.args.get('url', '')
 
     additional_info = {}
+    site_type = "Unknown"
     if request.method == "POST":
         url = request.form.get("url")
         if url and url not in past_tests:
@@ -33,6 +34,10 @@ def index():
         status_message = result.get("status_message")
         status_color = result.get("status_color")
         additional_info = result
+        site_type = result.get("site_type", "Unknown")
+        print(f"Site Type: {site_type}")  # Output site_type to terminal
+
+    print(f"Rendering template with site_type: {site_type}")  # Debug print to confirm value passed to template
 
     return render_template(
         "index.html",
@@ -40,5 +45,6 @@ def index():
         status_color=status_color,
         past_tests=past_tests,
         current_url=url,
-        additional_info=additional_info
+        additional_info=additional_info,
+        site_type=site_type
     )

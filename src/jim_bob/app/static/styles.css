@@ -67,6 +67,16 @@
             border-radius: 4px;
             margin-bottom: 5px;
         }
+
+        .site-type {
+            padding: 10px;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            color: #155724;
+            text-align: center;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -90,6 +100,30 @@
         </div>
 
         <div class="results">
+            <div class="result">
+                <label>DNS Check:</label>
+                {% if additional_info.dns_info %}
+                    <div class="w3-panel w3-border">
+                        <ul>
+                            {% if additional_info.dns_info.ip %}
+                                <li><strong>DNS IP:</strong> {{ additional_info.dns_info.ip }}</li>
+                            {% endif %}
+                            {% if additional_info.dns_info.cname %}
+                                <li><strong>CNAME:</strong> {{ additional_info.dns_info.cname }}</li>
+                            {% endif %}
+                            <li><strong>Zengenti Hosted:</strong> {{ "Yes" if additional_info.dns_info.is_zengenti else "No" }}</li>
+                            {% if site_type %}
+                            <li class="site-type"><strong>Site Type:</strong> {{ site_type }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="w3-panel w3-pale-yellow w3-border">
+                        <p>No DNS information available.</p>
+                    </div>
+                {% endif %}
+            </div>
+
             <div class="result">
                 <label>URL Test:</label>
                 {% if status_message %}
