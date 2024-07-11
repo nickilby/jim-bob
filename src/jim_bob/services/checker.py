@@ -4,10 +4,8 @@ import ipaddress
 from urllib.parse import urlparse
 from .utils import add_schema_if_missing
 from .ssl_details import get_ssl_certificate_details
-from .dns_info import get_dns_info
-
-
-ZENGENTI_IP_RANGE = ipaddress.ip_network("185.18.136.0/22")
+from .dns_info import get_dns_info, ZENGENTI_IP_RANGE
+from .site_type import determine_site_type
 
 def check_website(url):
     """Check the website status and DNS records."""
@@ -58,13 +56,9 @@ def check_website(url):
 
         result['dns_info'] = dns_info
 
-        # Determine site type from X-Origin-Server header
-        x_origin_server = headers.get('X-Origin-Server', '')
-        if x_origin_server.startswith('backend-coordinator'):
-            result['site_type'] = 'blocks'
-        elif x_origin_server.startswith('z-'):
-            result['site_type'] = 'classic'
-        
+        # Determine site type
+        result['site_type'] = determine_site_type(headers)
+
         # Log to terminal
         print(f"Initial URL: {url}")
         print(f"Final URL: {final_url}")
