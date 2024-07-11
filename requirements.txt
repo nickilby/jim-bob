@@ -34,7 +34,7 @@ pure-eval==0.2.2
 pycparser==2.22
 pygments==2.18.0
 python-dateutil==2.9.0.post0
-pywin32==306
+python-dotenv
 pyzmq==26.0.3
 requests==2.32.3
 ruff==0.5.1
