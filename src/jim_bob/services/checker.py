@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 from .utils import add_schema_if_missing
 from .ssl_details import get_ssl_certificate_details
 from .dns_info import get_dns_info, ZENGENTI_IP_RANGE
-from .site_type import determine_site_type
+from .site_type import determine_site_type, construct_additional_urls
 
 def check_website(url):
     """Check the website status and DNS records."""
@@ -25,7 +25,8 @@ def check_website(url):
             "status_color": "red-status",
             "is_zengenti": False
         },
-        "site_type": "Unknown"
+        "site_type": "Unknown",
+        "additional_urls": {}
     }
 
     try:
@@ -57,7 +58,28 @@ def check_website(url):
         result['dns_info'] = dns_info
 
         # Determine site type
-        result['site_type'] = determine_site_type(headers)
+        site_type = determine_site_type(headers)
+        result['site_type'] = site_type
+
+        # Construct additional URLs if site type is 'classic'
+        additional_urls = construct_additional_urls(headers, site_type, url)
+        result['additional_urls'] = additional_urls
+
+        # Check status of additional URLs
+        for name, additional_url in additional_urls.items():
+            try:
+                additional_response = requests.get(additional_url)
+                print(f"{name} URL: {additional_url} - Status Code: {additional_response.status_code}")
+                result['additional_urls'][name] = {
+                    'url': additional_url,
+                    'status_code': additional_response.status_code
+                }
+            except requests.RequestException as e:
+                print(f"Failed to reach {name} URL: {additional_url} - Error: {e}")
+                result['additional_urls'][name] = {
+                    'url': additional_url,
+                    'error': str(e)
+                }
 
         # Log to terminal
         print(f"Initial URL: {url}")
@@ -70,6 +92,7 @@ def check_website(url):
         print(f"Redirects: {redirects}")
         print(f"DNS Info: {dns_info}")
         print(f"Site Type: {result['site_type']}")  # Output site_type to terminal
+        print(f"Additional URLs: {result['additional_urls']}")  # Output additional URLs to terminal
 
         status_message = (
             f"Green (200 OK) - Final URL: {final_url}"
