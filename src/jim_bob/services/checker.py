@@ -26,7 +26,8 @@ def check_website(url):
             "is_zengenti": False
         },
         "site_type": "Unknown",
-        "additional_urls": {}
+        "additional_urls": {},
+        "alias": None
     }
 
     try:
@@ -62,8 +63,9 @@ def check_website(url):
         result['site_type'] = site_type
 
         # Construct additional URLs if site type is 'classic'
-        additional_urls = construct_additional_urls(headers, site_type, url)
+        additional_urls, alias = construct_additional_urls(headers, site_type, url)
         result['additional_urls'] = additional_urls
+        result['alias'] = alias  # Store the alias in the result
 
         # Check status of additional URLs
         for name, additional_url in additional_urls.items():
@@ -93,6 +95,7 @@ def check_website(url):
         print(f"DNS Info: {dns_info}")
         print(f"Site Type: {result['site_type']}")  # Output site_type to terminal
         print(f"Additional URLs: {result['additional_urls']}")  # Output additional URLs to terminal
+        print(f"Alias (from checker.py): {result['alias']}")  # Output alias to terminal
 
         status_message = (
             f"Green (200 OK) - Final URL: {final_url}"

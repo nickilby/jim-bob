@@ -15,11 +15,12 @@ def construct_additional_urls(headers, site_type, original_url):
         x_host = headers.get('x-host', '')
         if 'live-' in x_host and '.cloud.contensis.com' in x_host:
             alias = x_host.split('live-')[1].split('.cloud.contensis.com')[0]
+            print(f"Setting global_alias to: {alias}")  # Debug statement
             parsed_url = urlparse(original_url)
             path = parsed_url.path
             additional_urls = {
                 'WEB1': f"https://z-{alias}-web1-live-{alias}.cloud.contensis.com{path}",
                 'WEB2': f"https://z-{alias}-web2-live-{alias}.cloud.contensis.com{path}"
             }
-            return additional_urls
-    return {}
+            return additional_urls, alias
+    return {}, None
