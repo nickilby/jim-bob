@@ -1,7 +1,7 @@
 # Blocks
 www.ksc.ac.uk
 thames.towerhamlets.gov.uk
-www.towerhamletshomes.org.u
+www.towerhamletshomes.org.uk
 
 # Classic
 www.towerhamlets.gov.uk
