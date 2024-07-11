@@ -7,6 +7,7 @@ from .ssl_details import get_ssl_certificate_details
 from .dns_info import get_dns_info, ZENGENTI_IP_RANGE
 from .site_type import determine_site_type, construct_additional_urls
 
+
 def check_website(url):
     """Check the website status and DNS records."""
     url = add_schema_if_missing(url)
@@ -32,7 +33,7 @@ def check_website(url):
 
     try:
         start_time = time.time()
-        response = requests.get(url, allow_redirects=True)
+        response = requests.get(url, headers={"debug": "true"}, allow_redirects=True)
         response_time = time.time() - start_time
 
         # Capture redirect history
