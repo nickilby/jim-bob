@@ -9,7 +9,7 @@ jobs:
   run_python_tests:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/nickilby/jim-bob-dev:f690aa0
+      image: ghcr.io/nickilby/jim-bob-dev:3493757
       options: --user root # needs to be root or the checkout fails.
     env:
       GITHUB_PAT: ${{ secrets.PAT_NO_PERMISSIONS }}

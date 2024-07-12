@@ -1,2 +1,2 @@
 # Create the virtual environment.
-make venv
+make venv-dev
