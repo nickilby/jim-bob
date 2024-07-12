@@ -2,7 +2,7 @@
 #####################
 FROM mcr.microsoft.com/devcontainers/python:1-3.12-bullseye AS base
 
-RUN apt-get update \ 
+RUN apt-get update \
  && apt-get install -y build-essential curl
 
 # This is where the production app will be run from and where the virtual environment
@@ -15,9 +15,9 @@ LABEL org.opencontainers.image.source=https://github.com/nickilby/jim-bob/
 # Stage 2a: Development and test image
 ######################################
 # Includes a prebuild virtual environment with all the developer dependencies, but no
-# source files, so is only rebuilt when the poetry.lock or Dockerfile change.  The 
-# prebuilt virtual environment is used to speed up testing so we don't have to wait for
-# the dependencies to install before the tests can be run.
+# source files, so is only rebuilt when the requirements.dev.txt or Dockerfile change.
+# The prebuilt virtual environment is used to speed up testing so we don't have to wait
+# for the dependencies to install before the tests can be run.
 FROM base AS development
 
 LABEL org.opencontainers.image.description="jim-bob development container."

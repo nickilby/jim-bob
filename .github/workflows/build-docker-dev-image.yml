@@ -8,7 +8,7 @@ on:
     paths:
       - '.github/workflows/build-docker-dev-image.yml'
       - 'Dockerfile'
-      - 'poetry.lock'
+      - 'requirements.dev.txt'
       - 'pyproject.toml'
 
 jobs:
