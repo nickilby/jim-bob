@@ -1,5 +1,7 @@
 # Mage
 
+Notes at <https://nickilby.github.io/jim-bob/>.
+
 1. Clone the repository:
     ```
     git clone <repository_url>
@@ -8,26 +10,21 @@
 
 2. Create a virtual environment and activate it:
     ```
-    python3 -m venv .venv
-    source .venv/bin/activate
+    make venv-dev
     ```
 
-3. Install the dependencies:
-    ```
-    pip install -r requirements.txt
-    ```
-
-4. Run the application:
+3. Run the application:
     ```
     python ./src/jim_bob/main.py
     ```
 
 ## Usage
+
 Open your web browser and go to `http://127.0.0.1:8000`. Enter the URL you want to check
 in the provided input box and click "Check".
 
-
 #### Flow of tests
+
 ```mermaid
 flowchart TD
     A[Required Tests] --> B[All Sites Global Tests]
