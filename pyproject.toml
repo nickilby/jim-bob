@@ -1,46 +1,77 @@
-[tool.poetry]
-name = "jim-bob"
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jim_bob"
 version = "0.1.0"
 description = "URL Health Check"
-authors = ["Nic Kilby <n.kilby@zengenti.com>"]
-license = "MIT"
+authors = [
+    { name = "Joe Collins", email = "j.collins@zengenti.com" },
+    { name = "Ian Glaze", email = "i.glaze@zengenti.com" },
+    { name = "Nic Kilby", email = "n.kilby@zengenti.com" },
+    { name = "Alex Pop", email = "a.pop@zengenti.com" }
+]
 readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "ipykernel",
+    "dnspython",
+    "requests",
+    "flask",
+    "tinydb",
+    "python-dotenv",
+    "gunicorn",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "black",
+    "ruff",
+    "debugpy",
+    "mypy",
+    "pip-tools",
+    "responses",
+    "setuptools",
+    "sourcery",
+    "isort",
+]
+
+[project.urls]
 homepage = "https://nickilby.github.io/jim-bob"
 repository = "https://github.com/nickilby/jim-bob"
 documentation = "https://nickilby.github.io/jim-bob"
-packages = [
-    { include = "jim_bob", from = "src" }
+
+[tool.setuptools]
+py-modules = [
+    "python_src",
+    "tests"
+]  #  Disable auto discovery of modules (and only include the ones we specifically want).
+
+[tool.setuptools.packages.find]
+where = [
+    "src",
+    "tests"
 ]
 
-[tool.poetry.dependencies]
-ipykernel = "^6.29.5"
-python = "^3.11"
-dnspython = "2.6.1"
-requests = "^2.25.1"
-ruff = "^0.5.1"
-flask = "^2.0.1"
-tinydb = "^4.8.0"
-python-dotenv = "^1.0.1"
-gunicorn = "^22.0.0"
-
-[tool.poetry.dev-dependencies]
-pytest = "^6.2.1"
-black = "^21.6b0"
-isort = "^5.9.1"
-
-[tool.poetry.scripts]
+[project.scripts]
 run = "jim_bob.main:main"
-
-[tool.poetry.group.dev.dependencies]
-ipykernel = "^6.29.5"
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 88
-target-version = ['py311']
+target-version = ['py312']
 
 [tool.isort]
 profile = "black"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-q --cache-clear"
+testpaths = ["./tests"]

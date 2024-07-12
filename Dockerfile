@@ -5,13 +5,6 @@ FROM mcr.microsoft.com/devcontainers/python:1-3.12-bullseye AS base
 RUN apt-get update \ 
  && apt-get install -y build-essential curl
 
-# Install poetry in its own virtual environment to isolated it.
-RUN export POETRY_HOME=/opt/.venv-poetry \
- && python3 -m venv $POETRY_HOME \
- && $POETRY_HOME/bin/pip install poetry==1.8.3 \
- && $POETRY_HOME/bin/poetry --version \
- && $POETRY_HOME/bin/poetry config virtualenvs.in-project true
-
 # This is where the production app will be run from and where the virtual environment
 # will be prebuilt for use in testing.
 WORKDIR /app
@@ -30,10 +23,8 @@ FROM base AS development
 LABEL org.opencontainers.image.description="jim-bob development container."
 
 # Copy only the necessary files and prebuild the virtual environment.
-COPY pyproject.toml poetry.lock ./
-RUN export POETRY_HOME=/opt/.venv-poetry \
- && $POETRY_HOME/bin/poetry install --no-interaction --no-ansi \
- && $POETRY_HOME/bin/poetry completions bash >> ~/.bash_completion
+COPY Makefile pyproject.toml requirements.dev.txt ./
+RUN make venv-dev
 
 # Stage 2b: Production image
 ############################
@@ -45,8 +36,7 @@ LABEL org.opencontainers.image.description="jim-bob production container."
 
 # Copy everything and build the virtual environment without the dev dependencies.
 COPY . .
-RUN export POETRY_HOME=/opt/.venv-poetry \
- && $POETRY_HOME/bin/poetry install --without dev
+RUN make venv-prod
 
 # Run the Flask app with the poetry script in the virtual environment.
 CMD [".venv/bin/run"]
