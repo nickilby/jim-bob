@@ -20,9 +20,12 @@ jobs:
         submodules: false
         clean: true
 
+    - name: Symlink to virtual environment in container image
+      run: |
+        ln -snf /app/.venv .venv
+
     - name: Symlink the prebuilt assets and run tests.
       run: |
-        ln -snf /app/.venv .
         make venv-dev
         make report
         make test
