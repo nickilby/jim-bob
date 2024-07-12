@@ -2,7 +2,7 @@
 This module starts the Flask app.
 """
 import flask
-from jim_bob import blueprints
+from jim_bob.app.blueprints import home
 
 def create_app():
     """Create and configure the Flask app."""
@@ -10,7 +10,7 @@ def create_app():
 
      # pylint: disable=import-outside-toplevel
     app.register_blueprint(main)
-    app.register_blueprint(blueprints.ho)
+    app.register_blueprint(home.routes)
 
     return app
 
