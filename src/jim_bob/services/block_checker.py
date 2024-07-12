@@ -1,3 +1,4 @@
+"""Check the block."""
 from requests.structures import CaseInsensitiveDict
 
 from jim_bob.models.block_info import BlockInfo
