@@ -27,11 +27,11 @@ def check_website(url):
             "cname": None,
             "ns_records": [],
             "status_color": "red-status",
-            "is_zengenti": False
+            "is_zengenti": False,
         },
         "site_type": "Unknown",
         "additional_urls": {},
-        "alias": None
+        "alias": None,
     }
 
     try:
@@ -58,7 +58,7 @@ def check_website(url):
 
         # SSL Certificate Details
         ssl_details = {}
-        if urlparse(final_url).scheme == 'https':
+        if urlparse(final_url).scheme == "https":
             ssl_details = get_ssl_certificate_details(final_url)
 
         # DNS Lookup
@@ -68,31 +68,33 @@ def check_website(url):
             if ipaddress.ip_address(dns_info["ip"]) in ZENGENTI_IP_RANGE:
                 dns_info["is_zengenti"] = True
 
-        result['dns_info'] = dns_info
+        result["dns_info"] = dns_info
 
         # Determine site type
         site_type = determine_site_type(headers)
-        result['site_type'] = site_type
+        result["site_type"] = site_type
 
         # Construct additional URLs if site type is 'classic'
         additional_urls, alias = construct_additional_urls(headers, site_type, url)
-        result['additional_urls'] = additional_urls
-        result['alias'] = alias  # Store the alias in the result
+        result["additional_urls"] = additional_urls
+        result["alias"] = alias  # Store the alias in the result
 
         # Check status of additional URLs
         for name, additional_url in additional_urls.items():
             try:
                 additional_response = requests.get(additional_url)
-                print(f"{name} URL: {additional_url} - Status Code: {additional_response.status_code}")
-                result['additional_urls'][name] = {
-                    'url': additional_url,
-                    'status_code': additional_response.status_code
+                print(
+                    f"{name} URL: {additional_url} - Status Code: {additional_response.status_code}"
+                )
+                result["additional_urls"][name] = {
+                    "url": additional_url,
+                    "status_code": additional_response.status_code,
                 }
             except requests.RequestException as e:
                 print(f"Failed to reach {name} URL: {additional_url} - Error: {e}")
-                result['additional_urls'][name] = {
-                    'url': additional_url,
-                    'error': str(e)
+                result["additional_urls"][name] = {
+                    "url": additional_url,
+                    "error": str(e),
                 }
 
         # Log to terminal
@@ -106,46 +108,50 @@ def check_website(url):
         print(f"Redirects: {redirects}")
         print(f"DNS Info: {dns_info}")
         print(f"Site Type: {result['site_type']}")  # Output site_type to terminal
-        print(f"Additional URLs: {result['additional_urls']}")  # Output additional URLs to terminal
+        print(
+            f"Additional URLs: {result['additional_urls']}"
+        )  # Output additional URLs to terminal
         print(f"Alias (from checker.py): {result['alias']}")  # Output alias to terminal
 
         status_message = (
             f"Green (200 OK) - Final URL: {final_url}"
-            if final_status == 200 else
-            f"Amber ({final_status}) - Final URL: {final_url}"
-            if final_status in [301, 302] else
-            f"Red ({final_status}) - Final URL: {final_url}"
+            if final_status == 200
+            else f"Amber ({final_status}) - Final URL: {final_url}"
+            if final_status in [301, 302]
+            else f"Red ({final_status}) - Final URL: {final_url}"
         )
 
         status_color = (
             "green-status"
-            if final_status == 200 else
-            "amber-status"
-            if final_status in [301, 302] else
-            "red-status"
+            if final_status == 200
+            else "amber-status"
+            if final_status in [301, 302]
+            else "red-status"
         )
 
-        result.update({
-            "status_message": status_message,
-            "status_color": status_color,
-            "response_time": response_time,
-            "content_length": content_length,
-            "headers": headers,
-            "ssl_details": ssl_details,
-            "redirects": redirects
-        })
+        result.update(
+            {
+                "status_message": status_message,
+                "status_color": status_color,
+                "response_time": response_time,
+                "content_length": content_length,
+                "headers": headers,
+                "ssl_details": ssl_details,
+                "redirects": redirects,
+            }
+        )
 
     except requests.exceptions.SSLError:
-        result['dns_info'] = result.get('dns_info', {"status_color": "red-status", "is_zengenti": False})
-        result.update({
-            "status_message": "Amber (SSL Error)",
-            "status_color": "amber-status"
-        })
+        result["dns_info"] = result.get(
+            "dns_info", {"status_color": "red-status", "is_zengenti": False}
+        )
+        result.update(
+            {"status_message": "Amber (SSL Error)", "status_color": "amber-status"}
+        )
     except requests.exceptions.RequestException:
-        result['dns_info'] = result.get('dns_info', {"status_color": "red-status", "is_zengenti": False})
-        result.update({
-            "status_message": "Red (Down)",
-            "status_color": "red-status"
-        })
+        result["dns_info"] = result.get(
+            "dns_info", {"status_color": "red-status", "is_zengenti": False}
+        )
+        result.update({"status_message": "Red (Down)", "status_color": "red-status"})
 
     return result

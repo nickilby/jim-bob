@@ -5,7 +5,9 @@
         "tests"
     ],
     "files.exclude": {
-        "**/*.pyc": {"when": "$(basename).py"}, 
+        "**/*.pyc": {
+            "when": "$(basename).py"
+        },
         "**/__pycache__": true,
         "**/.pytest_cache": true
     },
@@ -18,17 +20,27 @@
     "terminal.integrated.profiles.linux": {
         "bash": {
             "path": "bash",
-            "args": ["-l"]
+            "args": [
+                "-l"
+            ]
         }
     },
     "terminal.integrated.defaultProfile.linux": "bash",
-    "editor.rulers": [88],
+    "editor.rulers": [
+        88
+    ],
     "python.autoComplete.extraPaths": [
         "./"
     ],
     "python.analysis.extraPaths": [
         "./"
     ],
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports.ruff": "explicit"
+        }
+    },
     "cSpell.words": [
         "azuretools",
         "bierner",
@@ -36,11 +48,15 @@
         "contensis",
         "devcontainer",
         "devcontainers",
+        "dotenv",
         "eamodio",
+        "gaierror",
         "hostheader",
         "mypy",
         "nickilby",
+        "NXDOMAIN",
         "sourcery",
+        "ssock",
         "tamasfe",
         "Tinydb",
         "toolsai",

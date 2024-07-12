@@ -1,6 +1,7 @@
-import ssl
 import socket
+import ssl
 from urllib.parse import urlparse
+
 
 def get_ssl_certificate_details(url):
     """Retrieve SSL certificate details."""
@@ -13,8 +14,8 @@ def get_ssl_certificate_details(url):
             cert = ssock.getpeercert()
 
             return {
-                "issuer": dict(x[0] for x in cert['issuer']),
-                "notBefore": cert['notBefore'],
-                "notAfter": cert['notAfter'],
-                "subject": dict(x[0] for x in cert['subject'])
+                "issuer": dict(x[0] for x in cert["issuer"]),
+                "notBefore": cert["notBefore"],
+                "notAfter": cert["notAfter"],
+                "subject": dict(x[0] for x in cert["subject"]),
             }
