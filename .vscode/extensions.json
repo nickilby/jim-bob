@@ -9,6 +9,7 @@
         "ms-python.mypy-type-checker",
         "ms-python.python",
         "ms-toolsai.jupyter",
+        "sourcery.sourcery",
         "streetsidesoftware.code-spell-checker",
         "tamasfe.even-better-toml"
     ]
