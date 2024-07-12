@@ -14,6 +14,8 @@ build==1.2.1
     # via pip-tools
 certifi==2024.7.4
     # via requests
+cfgv==3.4.0
+    # via pre-commit
 charset-normalizer==3.3.2
     # via requests
 click==8.1.7
@@ -29,6 +31,8 @@ debugpy==1.8.2
     #   jim_bob (pyproject.toml)
 decorator==5.1.1
     # via ipython
+distlib==0.3.8
+    # via virtualenv
 dnspython==2.6.1
     # via jim_bob (pyproject.toml)
 exceptiongroup==1.2.1
@@ -37,10 +41,14 @@ exceptiongroup==1.2.1
     #   pytest
 executing==2.0.1
     # via stack-data
+filelock==3.15.4
+    # via virtualenv
 flask==3.0.3
     # via jim_bob (pyproject.toml)
 gunicorn==22.0.0
     # via jim_bob (pyproject.toml)
+identify==2.6.0
+    # via pre-commit
 idna==3.7
     # via requests
 iniconfig==2.0.0
@@ -79,6 +87,8 @@ mypy-extensions==1.0.0
     #   mypy
 nest-asyncio==1.6.0
     # via ipykernel
+nodeenv==1.9.1
+    # via pre-commit
 packaging==24.1
     # via
     #   black
@@ -98,8 +108,11 @@ platformdirs==4.2.2
     # via
     #   black
     #   jupyter-core
+    #   virtualenv
 pluggy==1.5.0
     # via pytest
+pre-commit==3.7.1
+    # via jim_bob (pyproject.toml)
 prompt-toolkit==3.0.47
     # via ipython
 psutil==6.0.0
@@ -121,7 +134,9 @@ python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
     # via jim_bob (pyproject.toml)
 pyyaml==6.0.1
-    # via responses
+    # via
+    #   pre-commit
+    #   responses
 pyzmq==26.0.3
     # via
     #   ipykernel
@@ -172,6 +187,8 @@ urllib3==2.2.2
     # via
     #   requests
     #   responses
+virtualenv==20.26.3
+    # via pre-commit
 wcwidth==0.2.13
     # via prompt-toolkit
 werkzeug==3.0.3
