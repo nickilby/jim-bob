@@ -13,7 +13,7 @@
     "python.languageServer": "Pylance",
     "editor.minimap.enabled": false,
     "python.defaultInterpreterPath": ".venv/bin/python",
-    "python.terminal.activateEnvironment": false,
+    "python.terminal.activateEnvironment": true,
     "terminal.integrated.shellIntegration.enabled": true,
     "terminal.integrated.profiles.linux": {
         "bash": {
@@ -40,6 +40,7 @@
         "hostheader",
         "mypy",
         "nickilby",
+        "sourcery",
         "tamasfe",
         "Tinydb",
         "toolsai",

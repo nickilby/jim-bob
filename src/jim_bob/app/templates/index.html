@@ -158,6 +158,11 @@
                                 No
                             {% endif %}
                         </li>
+                        <li><strong>Site Type:</strong>
+                            {% if site_type %}
+                                {{ site_type }}
+                            {% endif %}
+                        </li>
                     </ul>
                 {% else %}
                     <p>No DNS information available.</p>
