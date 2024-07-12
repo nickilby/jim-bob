@@ -36,7 +36,7 @@ def check_website(url):
 
     try:
         start_time = time.time()
-        response = requests.get(url, headers={"debug": "true"}, allow_redirects=True)
+        response = requests.get(url, headers={"x-debug": "true"}, allow_redirects=True)
         response_time = time.time() - start_time
 
         # Capture redirect history
