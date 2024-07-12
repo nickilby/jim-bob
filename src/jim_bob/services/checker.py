@@ -2,10 +2,13 @@ import time
 import requests
 import ipaddress
 from urllib.parse import urlparse
+
+from .block_checker import check_block
 from .utils import add_schema_if_missing
 from .ssl_details import get_ssl_certificate_details
 from .dns_info import get_dns_info, ZENGENTI_IP_RANGE
 from .site_type import determine_site_type, construct_additional_urls
+from ..models.block_type import BlockType
 
 
 def check_website(url):
@@ -44,6 +47,14 @@ def check_website(url):
         final_status = response.status_code
         headers = response.headers
         content_length = len(response.content)
+
+        block_info = check_block(headers)
+        if block_info.block_type == BlockType.NONE:
+            print("Current URL is not a block")
+        elif block_info.block_type == BlockType.PROXY:
+            print("Current URL is a proxy")
+        else:
+            print("Current URL is a block")
 
         # SSL Certificate Details
         ssl_details = {}
