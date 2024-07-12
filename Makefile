@@ -29,7 +29,7 @@ venv:  # Create an empty virtual environment (enough to create the requirements 
 	-python3 -m venv .venv  # Skip failure the happens in Github Action.
 	.venv/bin/python -m pip install --upgrade pip setuptools pip-tools
 
-venv-dev:  # Create the developement virtual environment.
+venv-dev:  # Create the development virtual environment.
 	$(MAKE) venv
 	.venv/bin/python -m pip install -r requirements.dev.txt
 	.venv/bin/python -m pip install --editable .
