@@ -22,12 +22,6 @@
     python ./src/jim_bob/main.py
     ```
 
-5. Run the search host header demo:
-    ```
-    python ./src/jim_bob/main.py
-    ```
-
-
 ## Usage
 Open your web browser and go to `http://127.0.0.1:8000`. Enter the URL you want to check
 in the provided input box and click "Check".
