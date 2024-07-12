@@ -1,8 +1,5 @@
 .DEFAULT_GOAL:= help  # because it's is a safe task.
 
-# poetry has been installed in a virtual environment in the Docker image.
-POETRY = /opt/.venv-poetry/bin/poetry
-
 clean:  # Remove all build, test, coverage and Python artifacts.
 	rm -rf .venv
 	rm -rf *.egg-info
@@ -17,8 +14,9 @@ lint:  # Lint the code with ruff and sourcery.
 	.venv/bin/python -m ruff check ./src ./tests
 
 lock:  # Create the lock file and requirements file.
-	$(POETRY) lock
-	$(POETRY) export --without-hashes --format=requirements.txt | sed 's/ .*//' > requirements.txt
+	rm -f requirements.*
+	.venv/bin/python -m piptools compile --output-file=requirements.txt
+	.venv/bin/python -m piptools compile --extra=dev --output-file=requirements.dev.txt
 
 report:  # Report the python version and pip list.
 	.venv/bin/python --version
@@ -27,6 +25,16 @@ report:  # Report the python version and pip list.
 test:  # Run tests.
 	.venv/bin/python -m pytest ./tests --verbose --color=yes
 
-venv:  # Recreate the virtual environment using poetry.
-	$(POETRY) config virtualenvs.in-project true
-	$(POETRY) install --no-interaction --no-ansi
+venv:  # Create an empty virtual environment (enough to create the requirements files).
+	python3 -m venv .venv
+	.venv/bin/python -m pip install --upgrade pip setuptools pip-tools
+
+venv-dev:  # Create the developement virtual environment.
+	$(MAKE) venv
+	.venv/bin/python -m pip install -r requirements.dev.txt
+	.venv/bin/python -m pip install --editable .
+
+venv-prod:  # Create the production virtual environment.
+	$(MAKE) venv
+	.venv/bin/python -m pip install -r requirements.txt
+	.venv/bin/python -m pip install --editable .
