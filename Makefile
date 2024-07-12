@@ -26,7 +26,8 @@ test:  # Run tests.
 	.venv/bin/python -m pytest ./tests --verbose --color=yes
 
 venv:  # Create an empty virtual environment (enough to create the requirements files).
-	-python3 -m venv .venv  # Provided it is not already there.
+	whoami
+	-python3 -m venv .venv  # Skip failure the happens in Github Action.
 	.venv/bin/python -m pip install --upgrade pip setuptools pip-tools
 
 venv-dev:  # Create the developement virtual environment.
