@@ -21,27 +21,28 @@ classifiers = [
 ]
 
 dependencies = [
-    "ipykernel",
     "dnspython",
-    "requests",
     "flask",
-    "tinydb",
-    "python-dotenv",
     "gunicorn",
+    "ipykernel",
+    "python-dotenv",
+    "requests",
+    "tinydb",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "pytest",
     "black",
-    "ruff",
     "debugpy",
+    "isort",
     "mypy",
     "pip-tools",
+    "pre-commit",
+    "pytest",
     "responses",
+    "ruff",
     "setuptools",
     "sourcery",
-    "isort",
 ]
 
 [project.urls]
