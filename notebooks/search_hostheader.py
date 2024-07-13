@@ -50,8 +50,7 @@ def get_data_file_path(filename: str):
     project_root = file_finder.find_root()
     data_path = pathlib.Path("data")
     data_file = pathlib.Path(filename)
-    db_path = project_root / data_path / data_file
-    return db_path
+    return project_root / data_path / data_file
 
 
 if __name__ == "__main__":
