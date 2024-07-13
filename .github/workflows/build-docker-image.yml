@@ -49,6 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-and-push
     steps:
+      # https://github.com/contensis/block-push/blob/main/README.md
       - name: Contensis block push action
         uses: contensis/block-push@v1
         with:
