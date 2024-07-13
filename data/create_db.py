@@ -33,7 +33,7 @@ def load_json_files_to_db(directory_path, db_path):
             with open(file_path, 'r') as file:
                 try:
                     file_data = json.load(file)
-                    c.execute('INSERT INTO json_data (filename, json_content) VALUES (?, ?)', 
+                    c.execute('INSERT INTO json_data (filename, json_content) VALUES (?, ?)',
                               (filename, json.dumps(file_data)))
                     print(f"Loaded file: {filename}")
                     json_file_count += 1  # Increment counter
