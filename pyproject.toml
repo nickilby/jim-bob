@@ -23,6 +23,7 @@ classifiers = [
 dependencies = [
     "dnspython",
     "flask",
+    "flask-wtf",
     "gunicorn",
     "python-dotenv",
     "requests",

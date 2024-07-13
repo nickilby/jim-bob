@@ -5,23 +5,22 @@ Notes at <https://nickilby.github.io/jim-bob/>.
 1. Clone the repository:
     ```
     git clone <repository_url>
-    cd Status
     ```
 
-2. Create a virtual environment and activate it:
+2. Create the development virtual environment:
     ```
     make venv-dev
     ```
 
 3. Run the application:
     ```
-    python ./src/jim_bob/main.py
+    make flask
     ```
 
 ## Usage
 
-Open your web browser and go to `http://127.0.0.1:8000`. Enter the URL you want to check
-in the provided input box and click "Check".
+Open your web browser and go to `http://127.0.0.1:5000`.
+Enter the URL you want to check in the provided input box and click "Check".
 
 #### Flow of tests
 
