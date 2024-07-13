@@ -3,13 +3,14 @@ This module starts the Flask app.
 """
 import flask
 from jim_bob.app.blueprints import routes
+import os
 
 def create_app():
     """Create and configure the Flask app."""
-    the_app = flask.Flask(__name__)
+    the_app = flask.Flask(__name__, template_folder='app/templates')
+    the_app.config['SECRET_KEY'] = os.urandom(24)
     the_app.register_blueprint(routes.main)
     return the_app
-
 
 
 def main():
