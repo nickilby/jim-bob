@@ -1,14 +1,20 @@
 """
 This module starts the Flask app.
 """
+import flask
+from jim_bob.app.blueprints import routes
 
-from jim_bob.app import create_app
+def create_app():
+    """Create and configure the Flask app."""
+    the_app = flask.Flask(__name__)
+    the_app.register_blueprint(routes.main)
+    return the_app
 
-app = create_app()
 
 
 def main():
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    app = create_app()
+    app.run(host="0.0.0.0", debug=True)
 
 
 if __name__ == "__main__":
