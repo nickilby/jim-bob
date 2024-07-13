@@ -6,12 +6,16 @@ clean:  # Remove all build, test, coverage and Python artifacts.
 	find . -name "*.pyc" -exec rm -f {} \;
 	find . -type f -name "*.py[co]" -delete -or -type d -name "__pycache__" -delete
 
+flask:  # Run the Flask application.
+	.venv/bin/python ./src/jim_bob/main.py
+
 .PHONY: help
 help: # Show help for each of the makefile recipes.
 	@grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
 
-lint:  # Lint the code with ruff and sourcery.
+lint:  # Lint the code with ruff and mypy.
 	.venv/bin/python -m ruff check ./src ./tests
+	.venv/bin/python -m mypy ./src ./tests
 
 lock:  # Create the lock file and requirements file.
 	rm -f requirements.*

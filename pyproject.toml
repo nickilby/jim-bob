@@ -24,7 +24,6 @@ dependencies = [
     "dnspython",
     "flask",
     "gunicorn",
-    "ipykernel",
     "python-dotenv",
     "requests",
     "tinydb",
@@ -34,6 +33,7 @@ dependencies = [
 dev = [
     "black",
     "debugpy",
+    "ipykernel",
     "isort",
     "mypy",
     "pip-tools",
@@ -43,6 +43,7 @@ dev = [
     "ruff",
     "setuptools",
     "sourcery",
+    "types-requests",  # used for type checking.
 ]
 
 [project.urls]
