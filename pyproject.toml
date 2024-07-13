@@ -77,3 +77,12 @@ profile = "black"
 minversion = "6.0"
 addopts = "-q --cache-clear"
 testpaths = ["./tests"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+follow_imports = "skip"
+no_strict_optional = true
+disable_error_code = "import-untyped"
+ignore_missing_imports = true

@@ -1,6 +1,6 @@
 """Tests for the checker."""
 
-from jim_bob.services import checker
+from jim_bob.app.services import checker
 
 def test_add_schema_if_missing():
     """Confirm that the schema gets added."""

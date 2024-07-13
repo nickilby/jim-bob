@@ -3,7 +3,7 @@ This module defines the routes for the Flask app.
 """
 
 from flask import Blueprint, render_template, request, redirect, url_for
-from jim_bob.services.checker import check_website
+from jim_bob.app.services.checker import check_website
 
 main = Blueprint('main', __name__)
 

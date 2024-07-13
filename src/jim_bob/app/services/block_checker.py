@@ -2,8 +2,8 @@
 
 from requests.structures import CaseInsensitiveDict
 
-from jim_bob.models.block_info import BlockInfo
-from jim_bob.models.block_type import BlockType
+from jim_bob.app.models.block_info import BlockInfo
+from jim_bob.app.models.block_type import BlockType
 
 
 def check_block(headers: CaseInsensitiveDict[str]) -> BlockInfo:

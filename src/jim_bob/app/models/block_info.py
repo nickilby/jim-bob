@@ -1,4 +1,4 @@
-from jim_bob.models.block_type import BlockType
+from jim_bob.app.models.block_type import BlockType
 
 
 class BlockInfo:

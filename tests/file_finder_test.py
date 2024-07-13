@@ -1,6 +1,6 @@
 """Tests for the file finder service."""
 
-from jim_bob import file_finder_service
+from jim_bob.app.services import file_finder_service
 
 
 def test_is_present() -> None:
