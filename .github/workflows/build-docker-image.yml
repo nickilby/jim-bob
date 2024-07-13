@@ -44,4 +44,19 @@ jobs:
         tags: |
           ghcr.io/nickilby/jim-bob:latest
           ghcr.io/nickilby/jim-bob:${{ env.COMMIT_SHORT_SHA }}
+
+  push_to_blocks:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Contensis block push action
+        uses: contensis/block-push@v1
+        with:
+          alias: zenhub
+          block-id: santa-is-coming-to-town
+          client-id: ${{ secrets.Z_CLIENT_ID }}
+          git-token: ${{ secrets.GIT_TOKEN }}
+          image-uri: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAGS }}
+          project-id: testingJosh
+          shared-secret: ${{ secrets.Z_SHARED_SECRET }}
 ...
