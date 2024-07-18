@@ -1,4 +1,4 @@
-"""Check the block."""
+"""Check the block module."""
 
 from requests.structures import CaseInsensitiveDict
 
@@ -7,6 +7,7 @@ from jim_bob.app.models.block_type import BlockType
 
 
 def check_block(headers: CaseInsensitiveDict[str]) -> BlockInfo:
+    """Check the block function."""
     block_info = BlockInfo(BlockType.NONE)
     if headers.get("x-alias") is None:
         return block_info

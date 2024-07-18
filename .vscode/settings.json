@@ -37,8 +37,9 @@
     ],
     "[python]": {
         "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
-            "source.organizeImports.ruff": "explicit"
+            "source.organizeImports.ruff": "explicit",
         }
     },
     "cSpell.words": [

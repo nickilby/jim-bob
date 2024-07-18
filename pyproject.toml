@@ -10,7 +10,7 @@ authors = [
     { name = "Joe Collins", email = "j.collins@zengenti.com" },
     { name = "Ian Glaze", email = "i.glaze@zengenti.com" },
     { name = "Nic Kilby", email = "n.kilby@zengenti.com" },
-    { name = "Alex Pop", email = "a.pop@zengenti.com" }
+    { name = "Alex Pop", email = "a.pop@zengenti.com" },
 ]
 readme = "README.md"
 requires-python = ">=3.10"
@@ -37,6 +37,7 @@ dev = [
     "ipykernel",
     "isort",
     "mypy",
+    "myst_parser",  # for documentation.
     "pip-tools",
     "pre-commit",
     "pytest",
@@ -44,7 +45,10 @@ dev = [
     "ruff",
     "setuptools",
     "sourcery",
-    "types-requests",  # used for type checking.
+    "sphinx",  # for documentation.
+    "sphinx_rtd_theme",  # for documentation.
+    "sphinxcontrib-mermaid", # for diagrams in the documentation.
+    "types-requests",  # for type checking.
 ]
 
 [project.urls]
@@ -55,14 +59,11 @@ documentation = "https://nickilby.github.io/jim-bob"
 [tool.setuptools]
 py-modules = [
     "python_src",
-    "tests"
-]  #  Disable auto discovery of modules (and only include the ones we specifically want).
+    "tests",
+] #  Disable auto discovery of modules (and only include the ones we specifically want).
 
 [tool.setuptools.packages.find]
-where = [
-    "src",
-    "tests"
-]
+where = ["src", "tests"]
 
 [project.scripts]
 run = "jim_bob.main:main"

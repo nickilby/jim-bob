@@ -31,7 +31,7 @@ title: Tests
 
 ## Flow of tests
 
-```mermaid
+```{mermaid}
 flowchart TB
     A[Required Tests] --> B[All Sites Global Tests]
     B --> C[Enter URL]
