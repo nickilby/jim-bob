@@ -7,7 +7,7 @@ clean:  # Remove all build, test, coverage and Python artifacts.
 	find . -type f -name "*.py[co]" -delete -or -type d -name "__pycache__" -delete
 
 .PHONY: docs  # because there is a directory called docs.
-docs:  # Build the Sphinx documentation.
+docs:  # Build the Sphinx documentation from the markdown files and the API documentation.
 	rm -rf docs/api
 	sphinx-apidoc --extensions myst_parser,autodoc2 -o ./docs/_api ./src/jim_bob
 	rm -rf site
