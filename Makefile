@@ -8,8 +8,9 @@ clean:  # Remove all build, test, coverage and Python artifacts.
 
 .PHONY: docs  # because there is a directory called docs.
 docs:  # Build the Sphinx documentation from the markdown files and the API documentation.
-	rm -rf docs/api
-	sphinx-apidoc --extensions myst_parser,autodoc2 -o ./docs/_api ./src/jim_bob
+	rm -rf docs/_api
+	mkdir docs/_api
+	sphinx-apidoc --extensions myst_parser,autodoc2 -o docs/_api src/jim_bob
 	rm -rf site
 	.venv/bin/sphinx-build -b html docs site
 
