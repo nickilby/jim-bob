@@ -1,4 +1,4 @@
-name: Deploy Sphinx documentation to Pages
+name: Deploy Sphinx Docs to Github Pages
 
 on:
   push:
@@ -18,6 +18,15 @@ jobs:
       id-token: write
 
     steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: false
+        clean: true
+
+    - name: Symlink to virtual environment in container image
+      run: |
+        ln -snf /app/.venv .venv
+
     - name: Make the docs so that the module documentation is generated.
       run: |
         make docs
