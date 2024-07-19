@@ -13,6 +13,9 @@ docs:  # Build the Sphinx documentation from the markdown files and the API docu
 	rm -rf site
 	.venv/bin/sphinx-build -b html docs site
 
+docs-serve:  # Serve the docs
+	python -m http.server --directory site
+
 flask:  # Run the Flask application.
 	.venv/bin/python ./src/jim_bob/main.py
 
