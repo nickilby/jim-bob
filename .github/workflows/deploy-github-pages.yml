@@ -31,8 +31,8 @@ jobs:
       run: |
         make docs
   
-    - name: Deploy to Github Pages.
-      uses: sphinx-notes/pages@v3
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        checkout: false
-        requirements_path: requirements.dev.txt
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site
