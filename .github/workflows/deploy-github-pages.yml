@@ -34,4 +34,5 @@ jobs:
     - name: Deploy to Github Pages.
       uses: sphinx-notes/pages@v3
       with:
+        checkout: false
         requirements_path: requirements.dev.txt
