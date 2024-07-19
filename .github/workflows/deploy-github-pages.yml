@@ -27,7 +27,7 @@ jobs:
       run: |
         ln -snf /app/.venv .venv
 
-    - name: Make the docs so that the module documentation is generated.
+    - name: Make the docs so that the module documentation is generated
       run: |
         make docs
   

@@ -24,7 +24,7 @@ jobs:
       run: |
         ln -snf /app/.venv .venv
 
-    - name: Install the local package and test.
+    - name: Install the local package and test
       run: |
         make venv-dev
         make report
