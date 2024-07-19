@@ -29,6 +29,7 @@ jobs:
 
     - name: Make the docs so that the module documentation is generated
       run: |
+        ls -lah
         make docs
   
     - name: Deploy to Github Pages.
