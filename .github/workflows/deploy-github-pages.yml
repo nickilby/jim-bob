@@ -8,7 +8,7 @@ jobs:
   pages:
     runs-on: ubuntu-20.04
     container:
-      image: ghcr.io/nickilby/jim-bob-dev:0139b7b
+      image: ghcr.io/nickilby/jim-bob-dev:2ded266
       options: --user root # needs to be root or the checkout fails.
     environment:
       name: github-pages
